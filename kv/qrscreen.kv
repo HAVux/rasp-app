@@ -1,0 +1,40 @@
+<QRCodeScreen@MDScreen>:
+    name: "qr_code"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(20)
+        spacing: dp(20)
+
+        MDLabel:
+            text: "QUÉT MÃ QR ĐỂ THANH TOÁN"
+            halign: "center"
+            font_size: "24sp"
+            bold: True
+            theme_text_color: "Custom"
+            text_color: 0, 0, 0, 1
+
+        Image:
+            source: "assets/qrcode/qrcode.jpg"  # Thay ảnh QR code tại đây
+            size_hint: None, None
+            size: dp(250), dp(250)
+            pos_hint: {"center_x": 0.5}
+
+        MDLabel:
+            id: qr_total_label
+            text: "Tổng: 0 VND"
+            halign: "center"
+            font_size: "20sp"
+            theme_text_color: "Custom"
+            text_color: 0, 0, 0, 1
+
+        MDRoundFlatButton:
+            text: "HỦY GIAO DỊCH"
+            font_size: "18sp"
+            size_hint: None, None
+            size: dp(200), dp(50)
+            md_bg_color: 1, 0.3, 0.3, 1
+            text_color: 1, 1, 1, 1
+            pos_hint: {"center_x": 0.5}
+            on_press:
+                app.cancel_transaction()

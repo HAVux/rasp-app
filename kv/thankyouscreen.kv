@@ -1,0 +1,31 @@
+<ThankYouScreen@MDScreen>:
+    name: "thank_you"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(30)
+        spacing: dp(40)
+
+        MDLabel:
+            text: "CẢM ƠN QUÝ KHÁCH!"
+            halign: "center"
+            font_size: "28sp"
+            bold: True
+            theme_text_color: "Custom"
+            text_color: 0, 0.6, 0.2, 1
+
+        MDLabel:
+            id: order_code_label
+            text: "#A001"
+            halign: "center"
+            font_size: "60sp"
+            bold: True
+            theme_text_color: "Custom"
+            text_color: 0.1, 0.1, 0.1, 1
+
+        MDLabel:
+            text: "Vui lòng nhớ mã đơn để nhận món tại quầy"
+            halign: "center"
+            font_size: "20sp"
+            theme_text_color: "Custom"
+            text_color: 0.3, 0.3, 0.3, 1

@@ -1,0 +1,21 @@
+<!-- waiting.kv -->
+
+<WaitingScreen@MDscreen>:
+    name: "waiting"
+    MDFloatLayout:
+        md_bg_color: 1, 1, 1, 1
+
+        MDLabel:
+            text: "Vui lòng chờ xử lý đơn hàng..."
+            halign: "center"
+            valign: "center"
+            font_style: "H5"
+            theme_text_color: "Custom"
+            text_color: 0, 0, 0, 1
+            pos_hint: {"center_x": 0.5, "center_y": 0.6}
+
+        MDSpinner:
+            size_hint: None, None
+            size: dp(46), dp(46)
+            pos_hint: {"center_x": 0.5, "center_y": 0.45}
+            active: True
