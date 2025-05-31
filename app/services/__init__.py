@@ -1,0 +1,1 @@
+from .update_food import fetch_food_data

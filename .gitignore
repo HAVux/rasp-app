@@ -1,2 +1,6 @@
-/_pycache_
+/__pycache__
 /kivy_venv
+app/screen/__pycache__
+app/services/__pycache__
+app/utils/__pycache__
+cache_images

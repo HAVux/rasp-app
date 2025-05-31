@@ -2,10 +2,6 @@
 
 # <FoodItem>:
 #     orientation: 'vertical'
-#     # size_hint: None, None
-#     # size: dp(200), dp(220)
-#     # padding: dp(10)
-#     # spacing: dp(6)
 #     size_hint: None, None
 #     size: dp(200), dp(200)
 #     padding: dp(10)
@@ -65,6 +61,7 @@
 #             pos_hint: {'center_y': 0.5}
 #             on_press: root.add_to_order()
 
+
 # <OrderItem>:
 #     size_hint_y: None
 #     height: dp(60)
@@ -111,6 +108,7 @@
 #         pos_hint: {"center_y": 0.5}
 #         on_press: root.increase()
 
+
 # <DoAnScreen@Screen>:
 #     name: 'do_an'
 #     AnchorLayout:
@@ -152,9 +150,9 @@
 #                 text_color: 0, 0, 0, 1
 #                 on_press: app.next_page()
 #                 size_hint: None, None
-#                 size: dp(40), dp(40)        
+#                 size: dp(40), dp(40)
 
-                
+
 # <ThucUongScreen@Screen>:
 #     name: 'thuc_uong'
 #     AnchorLayout:
@@ -196,141 +194,151 @@
 #                 text_color: 0, 0, 0, 1
 #                 on_press: app.next_page()
 #                 size_hint: None, None
-#                 size: dp(40), dp(40)        
+#                 size: dp(40), dp(40)
 
-# BoxLayout:  
-#     orientation: 'horizontal'
-#     size: 1024, 600
 
-#     # Left panel: Order
+# <MainScreen@MDScreen>:
+#     name: "main"
 #     BoxLayout:
-#         orientation: 'vertical'
-#         padding: dp(20)
-#         spacing: dp(15)
-#         size_hint_x: 0.35
-#         canvas.before:
-#             Color:
-#                 rgba: 1, 1, 1, 1
-#             Rectangle:
-#                 pos: self.pos
-#                 size: self.size
+#         orientation: 'horizontal'
+#         size: 1024, 600
 
+#         # Left: Order Panel
 #         BoxLayout:
 #             orientation: 'vertical'
-#             spacing: dp(8)
-#             size_hint_y: None
-#             height: dp(100)
-#             MDLabel:
-#                 text: "UIT"
-#                 font_size: "96sp"
-#                 bold: True
-#                 halign: "center"
-#                 theme_text_color: "Custom"
-#                 text_color: 0.1, 0.1, 1, 1
-
-#         BoxLayout:
-#             orientation: 'vertical'
-#             spacing: dp(8)
-#             size_hint_y: None
-#             height: dp(50)
-#             MDLabel:
-#                 text: "ĐƠN HÀNG"
-#                 font_size: "24sp"
-#                 bold: True
-#                 halign: "center"
-#                 theme_text_color: "Custom"
-#                 text_color: 0, 0, 0, 1
-
-#         ScrollView:
+#             padding: dp(20)
+#             spacing: dp(15)
+#             size_hint_x: 0.35
 #             canvas.before:
 #                 Color:
-#                     rgba: 0.9, 0.9, 0.9, 1
-#                 RoundedRectangle:
+#                     rgba: 1, 1, 1, 1
+#                 Rectangle:
 #                     pos: self.pos
 #                     size: self.size
-#                     radius: [dp(20),]
+
 #             BoxLayout:
-#                 id: order_box
 #                 orientation: 'vertical'
+#                 spacing: dp(8)
 #                 size_hint_y: None
-#                 height: self.minimum_height
-#                 spacing: dp(5)
+#                 height: dp(100)
+#                 MDLabel:
+#                     text: "UIT"
+#                     font_size: "96sp"
+#                     bold: True
+#                     halign: "center"
+#                     theme_text_color: "Custom"
+#                     text_color: 0.1, 0.1, 1, 1
 
-#         BoxLayout:
-#             size_hint_y: None
-#             height: dp(40)
-#             spacing: dp(5)
-#             MDLabel:
-#                 text: "TỔNG:"
-#                 font_size: '20sp'
-#                 bold: True
-#                 color: 0, 0, 0
-#                 size_hint_x: 0.4
-#             MDLabel:
-#                 id: total_label
-#                 text: "0 VND"
-#                 font_size: '20sp'
-#                 color: 0.2, 0.2, 0.2, 1
-        
-#         AnchorLayout:
-#             size_hint_y: None
-#             height: dp(50)
-#             MDRoundFlatButton:
-#                 text: "THANH TOÁN"
-#                 md_bg_color: 1, 0.2, 0.2, 1
-#                 text_color: 0, 0, 0, 1
-#                 font_size: '22sp'
-#                 bold: True
-#                 size_hint: None, None
-#                 size: dp(200), dp(60)
-#                 pos_hint: {"center_x": 0.5}
-#                 on_press:
-#                     app.process_checkout()
-
-#     # Right panel: Food/Drink menu
-#     BoxLayout:
-#         orientation: 'vertical'
-#         padding: dp(10)
-#         spacing: dp(10)
-#         size_hint_x: 0.65
-
-#         AnchorLayout:
-#             anchor_x: "center"
-#             size_hint_y: None
-#             height: dp(80)
 #             BoxLayout:
-#                 spacing: dp(20)
-#                 size_hint: None, None
-#                 width: dp(360)
-#                 height: dp(60)
-#                 MDRoundFlatButton:
-#                     text: "Đồ ăn"
-#                     font_size: '20sp'
-#                     size_hint: 1, 1
-#                     md_bg_color: 0.85, 0.85, 0.85, 1
+#                 orientation: 'vertical'
+#                 spacing: dp(8)
+#                 size_hint_y: None
+#                 height: dp(50)
+#                 MDLabel:
+#                     text: "ĐƠN HÀNG"
+#                     font_size: "24sp"
+#                     bold: True
+#                     halign: "center"
+#                     theme_text_color: "Custom"
 #                     text_color: 0, 0, 0, 1
-#                     on_press: app.change_tab('do_an')
-#                 MDRoundFlatButton:
-#                     text: "Thức uống"
-#                     font_size: '20sp'
-#                     size_hint: 1, 1
-#                     md_bg_color: 0.85, 0.85, 0.85, 1
-#                     text_color: 0, 0, 0, 1
-#                     on_press: app.change_tab('thuc_uong')
 
-#         ScreenManager:
-#             id: screen_manager
-#             DoAnScreen:
-#             ThucUongScreen:
-            
+#             ScrollView:
+#                 canvas.before:
+#                     Color:
+#                         rgba: 0.9, 0.9, 0.9, 1
+#                     RoundedRectangle:
+#                         pos: self.pos
+#                         size: self.size
+#                         radius: [dp(20),]
+#                 BoxLayout:
+#                     id: order_box
+#                     orientation: 'vertical'
+#                     size_hint_y: None
+#                     height: self.minimum_height
+#                     spacing: dp(5)
+
+#             BoxLayout:
+#                 size_hint_y: None
+#                 height: dp(40)
+#                 spacing: dp(5)
+#                 MDLabel:
+#                     text: "TỔNG:"
+#                     font_size: '20sp'
+#                     bold: True
+#                     color: 0, 0, 0
+#                     size_hint_x: 0.4
+#                 MDLabel:
+#                     id: total_label
+#                     text: "0 VND"
+#                     font_size: '20sp'
+#                     color: 0.2, 0.2, 0.2, 1
+
+#             AnchorLayout:
+#                 size_hint_y: None
+#                 height: dp(50)
+#                 MDRoundFlatButton:
+#                     text: "THANH TOÁN"
+#                     md_bg_color: 1, 0.2, 0.2, 1
+#                     text_color: 0, 0, 0, 1
+#                     font_size: '22sp'
+#                     bold: True
+#                     size_hint: None, None
+#                     size: dp(200), dp(60)
+#                     pos_hint: {"center_x": 0.5}
+#                     on_press:
+#                         app.process_checkout()
+
+#         # Right: Menu Panel
+#         BoxLayout:
+#             orientation: 'vertical'
+#             padding: dp(10)
+#             spacing: dp(10)
+#             size_hint_x: 0.65
+
+#             AnchorLayout:
+#                 anchor_x: "center"
+#                 size_hint_y: None
+#                 height: dp(80)
+#                 BoxLayout:
+#                     spacing: dp(20)
+#                     size_hint: None, None
+#                     width: dp(360)
+#                     height: dp(60)
+#                     MDRoundFlatButton:
+#                         text: "Đồ ăn"
+#                         font_size: '20sp'
+#                         size_hint: 1, 1
+#                         md_bg_color: 0.85, 0.85, 0.85, 1
+#                         text_color: 0, 0, 0, 1
+#                         on_press: app.change_tab('do_an')
+#                     MDRoundFlatButton:
+#                         text: "Thức uống"
+#                         font_size: '20sp'
+#                         size_hint: 1, 1
+#                         md_bg_color: 0.85, 0.85, 0.85, 1
+#                         text_color: 0, 0, 0, 1
+#                         on_press: app.change_tab('thuc_uong')
+
+#             ScreenManager:
+#                 id: screen_manager
+#                 DoAnScreen:
+#                 ThucUongScreen:
+
 #:import dp kivy.metrics.dp
+#:import Factory kivy.factory.Factory
 
-<FoodItem>:
+<FoodItem@MDBoxLayout>:
     orientation: 'vertical'
     size_hint: None, None
     size: dp(200), dp(200)
     padding: dp(10)
     spacing: dp(8)
+    food_id: ''
+    food_name: ''
+    price: 0
+    image_source: ''
+    price_text: ''
+    available: 0
     canvas.before:
         Color:
             rgba: 0.95, 0.95, 1, 1
@@ -339,7 +347,7 @@
             size: self.size
             radius: [dp(25),]
     Image:
-        source: root.image_source if root.image_source else ""
+        source: root.image_source
         allow_stretch: True
         keep_ratio: True
         size_hint_y: None
@@ -362,7 +370,7 @@
             spacing: dp(2)
             size_hint_x: 0.6
             MDLabel:
-                text: str(root.price_text or "0 VND")
+                text: root.price_text
                 font_size: '15sp'
                 color: 0.1, 0.1, 0.1, 1
                 halign: 'left'
@@ -386,19 +394,18 @@
             pos_hint: {'center_y': 0.5}
             on_press: root.add_to_order()
 
-
 <OrderItem>:
     size_hint_y: None
-    height: dp(60)
-    padding: dp(10)
-    spacing: dp(10)
+    height: dp(48)
+    padding: dp(3)
+    spacing: dp(3)
     canvas.before:
         Color:
             rgba: 0.95, 0.95, 0.95, 1
         RoundedRectangle:
             pos: self.pos
             size: self.size
-            radius: [dp(20),]
+            radius: [dp(12),]
     MDLabel:
         text: root.food_name
         font_size: '16sp'
@@ -433,94 +440,43 @@
         pos_hint: {"center_y": 0.5}
         on_press: root.increase()
 
-
 <DoAnScreen@Screen>:
     name: 'do_an'
-    AnchorLayout:
-        anchor_x: 'center'
-        anchor_y: 'top'
-        BoxLayout:
-            orientation: 'vertical'
-            spacing: dp(10)
-            size_hint: None, None
-            size: self.minimum_size
-            GridLayout:
-                id: do_an_grid
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: dp(10)
+        padding: dp(10)
+        RecycleView:
+            id: do_an_rv
+            viewclass: 'FoodItem'
+            scroll_type: ['bars', 'content']
+            bar_width: dp(4)
+            RecycleGridLayout:
                 cols: 2
-                spacing: dp(10), dp(20)
-                padding: dp(10), dp(10)
-                size_hint: None, None
-                size: self.minimum_size
-    AnchorLayout:
-        size_hint_y: None
-        height: dp(70)
-        anchor_x: 'center'
-        anchor_y: 'center'
-        BoxLayout:
-            size_hint: None, None
-            size: dp(110), dp(50)
-            spacing: dp(20)
-            MDIconButton:
-                icon: "chevron-left"
-                md_bg_color: 0, 1, 1, 1
-                theme_text_color: "Custom"
-                text_color: 0, 0, 0, 1
-                on_press: app.prev_page()
-                size_hint: None, None
-                size: dp(40), dp(40)
-            MDIconButton:
-                icon: "chevron-right"
-                md_bg_color: 0, 1, 1, 1
-                theme_text_color: "Custom"
-                text_color: 0, 0, 0, 1
-                on_press: app.next_page()
-                size_hint: None, None
-                size: dp(40), dp(40)
+                default_size: None, dp(220)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(10)
 
 
 <ThucUongScreen@Screen>:
     name: 'thuc_uong'
-    AnchorLayout:
-        anchor_x: 'center'
-        anchor_y: 'top'
-        BoxLayout:
-            orientation: 'vertical'
-            spacing: dp(10)
-            size_hint: None, None
-            size: self.minimum_size
-            GridLayout:
-                id: thuc_uong_grid
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: dp(10)
+        padding: dp(10)
+        RecycleView:
+            id: thuc_uong_rv
+            viewclass: 'FoodItem'
+            scroll_type: ['bars', 'content']
+            bar_width: dp(4)
+            RecycleGridLayout:
                 cols: 2
-                spacing: dp(10), dp(20)
-                padding: dp(10), dp(10)
-                size_hint: None, None
-                size: self.minimum_size
-    AnchorLayout:
-        size_hint_y: None
-        height: dp(70)
-        anchor_x: 'center'
-        anchor_y: 'center'
-        BoxLayout:
-            size_hint: None, None
-            size: dp(110), dp(50)
-            spacing: dp(20)
-            MDIconButton:
-                icon: "chevron-left"
-                md_bg_color: 0, 1, 1, 1
-                theme_text_color: "Custom"
-                text_color: 0, 0, 0, 1
-                on_press: app.prev_page()
-                size_hint: None, None
-                size: dp(40), dp(40)
-            MDIconButton:
-                icon: "chevron-right"
-                md_bg_color: 0, 1, 1, 1
-                theme_text_color: "Custom"
-                text_color: 0, 0, 0, 1
-                on_press: app.next_page()
-                size_hint: None, None
-                size: dp(40), dp(40)
-
+                default_size: None, dp(220)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
 
 <MainScreen@MDScreen>:
     name: "main"
@@ -528,92 +484,64 @@
         orientation: 'horizontal'
         size: 1024, 600
 
-        # Left: Order Panel
+        # Left Panel
         BoxLayout:
             orientation: 'vertical'
-            padding: dp(20)
-            spacing: dp(15)
+            padding: dp(15)
+            spacing: dp(5)
             size_hint_x: 0.35
-            canvas.before:
-                Color:
-                    rgba: 1, 1, 1, 1
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
-
-            BoxLayout:
-                orientation: 'vertical'
-                spacing: dp(8)
+            MDLabel:
+                text: "UIT"
+                font_size: "96sp"
+                halign: "center"
+                color: 0.1, 0.1, 1, 1
+                bold: True
                 size_hint_y: None
-                height: dp(100)
-                MDLabel:
-                    text: "UIT"
-                    font_size: "96sp"
-                    bold: True
-                    halign: "center"
-                    theme_text_color: "Custom"
-                    text_color: 0.1, 0.1, 1, 1
-
-            BoxLayout:
-                orientation: 'vertical'
-                spacing: dp(8)
+                height: self.texture_size[1] + dp(20)
+            MDLabel:
+                text: "ĐƠN HÀNG"
+                font_size: "24sp"
+                halign: "center"
+                color: 0, 0, 0, 1
+                bold: True
                 size_hint_y: None
-                height: dp(50)
-                MDLabel:
-                    text: "ĐƠN HÀNG"
-                    font_size: "24sp"
-                    bold: True
-                    halign: "center"
-                    theme_text_color: "Custom"
-                    text_color: 0, 0, 0, 1
-
             ScrollView:
-                canvas.before:
-                    Color:
-                        rgba: 0.9, 0.9, 0.9, 1
-                    RoundedRectangle:
-                        pos: self.pos
-                        size: self.size
-                        radius: [dp(20),]
+                size_hint_y: 1
                 BoxLayout:
                     id: order_box
                     orientation: 'vertical'
                     size_hint_y: None
                     height: self.minimum_height
-                    spacing: dp(5)
-
+                    spacing: dp(3)
+                    padding: [dp(3)] * 4
             BoxLayout:
                 size_hint_y: None
                 height: dp(40)
-                spacing: dp(5)
                 MDLabel:
                     text: "TỔNG:"
                     font_size: '20sp'
                     bold: True
-                    color: 0, 0, 0
                     size_hint_x: 0.4
+                    color: 0, 0, 0, 1
                 MDLabel:
                     id: total_label
                     text: "0 VND"
                     font_size: '20sp'
                     color: 0.2, 0.2, 0.2, 1
-
             AnchorLayout:
                 size_hint_y: None
-                height: dp(50)
+                height: dp(60)
                 MDRoundFlatButton:
                     text: "THANH TOÁN"
                     md_bg_color: 1, 0.2, 0.2, 1
                     text_color: 0, 0, 0, 1
                     font_size: '22sp'
-                    bold: True
                     size_hint: None, None
                     size: dp(200), dp(60)
                     pos_hint: {"center_x": 0.5}
-                    on_press:
-                        app.process_checkout()
+                    on_press: app.process_checkout()
 
-        # Right: Menu Panel
+        # Right Panel
         BoxLayout:
             orientation: 'vertical'
             padding: dp(10)
@@ -621,7 +549,6 @@
             size_hint_x: 0.65
 
             AnchorLayout:
-                anchor_x: "center"
                 size_hint_y: None
                 height: dp(80)
                 BoxLayout:
@@ -633,18 +560,29 @@
                         text: "Đồ ăn"
                         font_size: '20sp'
                         size_hint: 1, 1
-                        md_bg_color: 0.85, 0.85, 0.85, 1
-                        text_color: 0, 0, 0, 1
                         on_press: app.change_tab('do_an')
                     MDRoundFlatButton:
                         text: "Thức uống"
                         font_size: '20sp'
                         size_hint: 1, 1
-                        md_bg_color: 0.85, 0.85, 0.85, 1
-                        text_color: 0, 0, 0, 1
                         on_press: app.change_tab('thuc_uong')
-
             ScreenManager:
                 id: screen_manager
                 DoAnScreen:
                 ThucUongScreen:
+
+            BoxLayout:
+                size_hint_y: None
+                height: dp(50)
+                spacing: dp(10)
+                padding: dp(10)
+                MDIconButton:
+                    icon: "chevron-left"
+                    on_release: app.prev_page()
+                MDLabel:
+                    text: f"{app.current_page + 1}"
+                    halign: "center"
+                    theme_text_color: "Primary"
+                MDIconButton:
+                    icon: "chevron-right"
+                    on_release: app.next_page()

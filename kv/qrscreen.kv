@@ -14,11 +14,16 @@
             theme_text_color: "Custom"
             text_color: 0, 0, 0, 1
 
-        Image:
-            source: "assets/qrcode/qrcode.jpg"  # Thay ảnh QR code tại đây
+        AsyncImage:
+            id: qr_image
+            source: root.qr_url if root.qr_url else "assets/no-image-available.jpg"  # Thay ảnh QR code tại đây
+            on_error:
+                self.source = "assets/no-image-available.jpg" #fallback nếu lỗi
             size_hint: None, None
             size: dp(250), dp(250)
             pos_hint: {"center_x": 0.5}
+            allow_stretch: True
+            keep_ratio: True
 
         MDLabel:
             id: qr_total_label
