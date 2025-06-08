@@ -11,8 +11,10 @@ def cancel_order(order_code):
     try:
         url = f"{API_URL}/{order_code}"
         payload = {"status": 4}
-        headers = {"Content-Type": "application/json"}
-
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Kivy App)",
+            "Content-Type": "application/json"
+        }
         response = requests.post(url, json=payload, headers=headers)
 
         if response.status_code == 200:

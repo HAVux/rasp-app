@@ -18,7 +18,10 @@ def send_order(items):
     """
     try:
         payload = {"items": items}
-        headers = {"User-Agent": "Mozilla/5.0 (Kivy App)"}
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Kivy App)",
+            "Content-Type": "application/json"
+        }
 
         start_time = time.time()
         response = requests.post(ORDER_API_URL, json=payload, headers=headers, timeout=10)

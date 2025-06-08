@@ -8,9 +8,14 @@ def check_order_status(order_code):
     Kiểm tra đơn đã thanh toán chưa
     status = 2: thành công
     '''
+    headers = {
+            "User-Agent": "Mozilla/5.0 (Kivy App)",
+            "Content-Type": "application/json"
+        }
+    
     try:
         url = f"{API_URL}/{order_code}"
-        response = requests.get(url, timeout=5)
+        response = requests.get(url, headers=headers, timeout=5)
         if response.status_code == 200:
             data = response.json().get("data", {})
             return data.get("status")
