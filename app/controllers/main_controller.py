@@ -73,7 +73,7 @@ class MainApp(MDApp):
         self.send_order_controller.go_to_thank_you(dt)
 
     def reset_to_main(self, dt):
-        self.send_order_controller.reset_to_main(dt)
+        self.page_controller.reset_to_main(dt)
 
 # === POLLING ===
     def poll_food_data(self, dt):
@@ -83,8 +83,8 @@ class MainApp(MDApp):
         self.send_order_controller.poll_order_status(dt)
 
 # === DATA ===
-    def subtract_ordered_items(self):
-        self.order_controller.subtract_ordered_items()
+    # def subtract_ordered_items(self):
+    #     self.order_controller.subtract_ordered_items()
 
     def clear_cache_and_data(self):
         cache_dir = "cache_images"

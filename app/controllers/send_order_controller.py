@@ -45,7 +45,6 @@ class SendOrderController:
         
         Thread(target=_cancel).start()
     
-
     # def go_to_qr_code(self, dt):
     #     qr_screen = self.app.root.get_screen("qr_code")
     #     qr_screen.ids.qr_total_label.text = f"Tổng: {self.app.total:,} VND"

@@ -21,7 +21,7 @@ def send_order(items):
         headers = {"User-Agent": "Mozilla/5.0 (Kivy App)"}
 
         start_time = time.time()
-        response = requests.post(ORDER_API_URL, json=payload, headers=headers, timeout=5)
+        response = requests.post(ORDER_API_URL, json=payload, headers=headers, timeout=10)
         duration = time.time() - start_time
         print(f"⏱ Gửi đơn mất {duration:.2f}s")
         

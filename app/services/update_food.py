@@ -8,7 +8,7 @@ def fetch_food_data(api_url="https://kltn-green.vercel.app/food"):
         start_time = time.time()
 
         headers = {"User-Agent": "Mozilla/5.0 (Kivy App)"}
-        response = requests.get(api_url, headers=headers, timeout=5)
+        response = requests.get(api_url, headers=headers, timeout=10)
 
         duration = time.time() - start_time
         print(f"⏱ Lấy menu mất {duration:.2f}s")

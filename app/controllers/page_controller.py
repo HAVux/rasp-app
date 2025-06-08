@@ -83,7 +83,6 @@ class PageController:
         self.app.poll_status_event = Clock.schedule_interval(self.poll_order_status, 2)
 
     def go_to_thank_you(self, dt):
-        self.app.order_controller.subtract_ordered_items()
         # 🧹 Xóa ảnh QR đã lưu
         if self.app.qr_image_path and os.path.exists(self.app.qr_image_path):
             os.remove(self.app.qr_image_path)
@@ -101,11 +100,18 @@ class PageController:
         self.app.order_code = ""
         self.app.qr_url = ""
 
+        self.app.current_tab = "do_an"
+        self.app.current_page = 0
+
         main_screen = self.app.root.get_screen("main")
         main_screen.ids.order_box.clear_widgets()
         main_screen.ids.total_label.text = "0 VND"
 
         self.app.root.current = "main"
+    
+    def go_to_net_work_error(self, dt):
+        self.app.root.current = "network_error"
+        Clock.schedule_once(self.reset_to_main, 3)
     
     def poll_order_status(self, dt):
         if not self.app.order_code:
