@@ -2,6 +2,8 @@
 import os
 import hashlib
 import requests
+from PIL import Image
+from io import BytesIO
 
 CACHE_DIR = "cache_images"
 FALLBACK_IMAGE = "assets/no-image-available.jpg"
@@ -18,9 +20,11 @@ def get_cached_image_path(url):
         try:
             response = requests.get(url, timeout=5)
             if response.status_code == 200:
-                with open(path, "wb") as f:
-                    f.write(response.content)
-                print(f"📥 Cached: {url}")
+                img = Image.open(BytesIO(response.content))
+                img = img.convert("RGB")
+                img = img.resize((300, 300))  # Resize về kích thước chuẩn
+                img.save(path, format='JPEG', quality=90)
+                print(f"📥 Cached + Resized: {url}")
             else:
                 print(f"⚠️ Không thể tải ảnh {url} → dùng fallback")
                 return FALLBACK_IMAGE

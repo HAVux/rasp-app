@@ -1,4 +1,2 @@
-from .mainscreen import FoodItem, OrderItem
-from .waitingscreen import WaitingScreen
-from .qrscreen import QRCodeScreen
-from .thankyouscreen import ThankYouScreen
+from app.screens.components.food_item import FoodItem
+from app.screens.components.order_item import OrderItem

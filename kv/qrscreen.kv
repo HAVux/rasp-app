@@ -16,7 +16,7 @@
 
         AsyncImage:
             id: qr_image
-            source: root.qr_url if root.qr_url else "assets/no-image-available.jpg"  # Thay ảnh QR code tại đây
+            source: "assets/no-image-available.jpg"  # Thay ảnh QR code tại đây
             on_error:
                 self.source = "assets/no-image-available.jpg" #fallback nếu lỗi
             size_hint: None, None
