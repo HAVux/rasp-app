@@ -2,8 +2,10 @@
 import requests
 import time
 from app.utils.image_cache import get_cached_image_path
+from app.services.api_config import FOOD_API_URL
 
-def fetch_food_data(api_url="https://kltn-green.vercel.app/food"):
+
+def fetch_food_data():
     try:
         start_time = time.time()
 
@@ -11,7 +13,7 @@ def fetch_food_data(api_url="https://kltn-green.vercel.app/food"):
             "User-Agent": "Mozilla/5.0 (Kivy App)",
             "Content-Type": "application/json"
         }
-        response = requests.get(api_url, headers=headers, timeout=10)
+        response = requests.get(FOOD_API_URL, headers=headers, timeout=10)
 
         duration = time.time() - start_time
         print(f"⏱ Lấy menu mất {duration:.2f}s")

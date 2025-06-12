@@ -1,0 +1,1 @@
+WIFI_CONFIG_PATH = "/etc/wpa_supplicant/wpa_supplicant.conf"

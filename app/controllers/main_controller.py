@@ -1,15 +1,27 @@
 #app/controllers/main_controller.py
+from kivy.config import Config
+Config.set('graphics', 'fullscreen', 'auto')
+Config.set('graphics', 'width', '1024')
+Config.set('graphics', 'height', '600')
+Config.set('graphics', 'borderless', '1')
+
 from kivymd.app import MDApp
 from kivy.properties import DictProperty, NumericProperty, StringProperty
 from kivy.clock import Clock
 import os
 import shutil
+from time import time
 from app.controllers.page_controller import PageController
 from app.controllers.order_controller import OrderController
 from app.controllers.send_order_controller import SendOrderController
 from app.controllers.screen_loader import load_all_screens
+from app.widgets.pin_popup import PinPopup
+from kivy.lang import Builder
+#from kivy.uix.popup import Popup
 
 class MainApp(MDApp):
+
+    hold_start_time = NumericProperty(0)
 
     order_data = DictProperty({})
     total = NumericProperty(0)
@@ -95,3 +107,20 @@ class MainApp(MDApp):
         self.order_data.clear()
         self.total = 0
         print("🔁 Đã reset order_data và total")
+
+# === UTILS ===
+    def start_hold_timer(self):
+            self.hold_start_time = time()
+
+    def check_hold_duration(self):
+        hold_duration = time() - self.hold_start_time
+        if hold_duration >= 7:  # Nếu nhấn giữ >= 7 giây
+            self.show_pin_popup()
+
+    def show_pin_popup(self):
+        """Show PIN entry popup for settings access"""
+        def on_success():
+            self.root.current = 'settings'
+        
+        pin_popup = PinPopup(on_success=on_success)
+        pin_popup.open()

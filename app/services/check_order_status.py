@@ -1,7 +1,6 @@
 #app/services/check_order_status.py
 import requests
-
-API_URL = "https://kltn-green.vercel.app/order/status"
+from app.services.api_config import STATUS_API_URL
 
 def check_order_status(order_code):
     '''
@@ -14,7 +13,7 @@ def check_order_status(order_code):
         }
     
     try:
-        url = f"{API_URL}/{order_code}"
+        url = f"{STATUS_API_URL}/{order_code}"
         response = requests.get(url, headers=headers, timeout=5)
         if response.status_code == 200:
             data = response.json().get("data", {})

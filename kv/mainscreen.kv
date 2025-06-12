@@ -6,7 +6,7 @@
 <FoodItem@MDBoxLayout>:
     orientation: 'vertical'
     size_hint_x: 0.5
-    size_hint_y: None
+    size_hint_y: 1
     height: dp(220)
     padding: dp(10)
     spacing: dp(8)
@@ -183,13 +183,20 @@
                     pos: self.pos
                     size: self.size
             MDLabel:
+                id: logo
                 text: "UIT"
-                font_size: "96sp"
+                font_size: "48sp"
                 halign: "center"
                 color: 0.1, 0.1, 1, 1
                 bold: True
                 size_hint_y: None
                 height: self.texture_size[1] + dp(20)
+                on_touch_down: 
+                    if self.collide_point(*args[1].pos): \
+                    app.start_hold_timer()
+                on_touch_up: 
+                    if self.collide_point(*args[1].pos): \
+                    app.check_hold_duration()
             MDLabel:
                 text: "ĐƠN HÀNG"
                 font_size: "24sp"

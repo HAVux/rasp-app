@@ -9,3 +9,4 @@ charset-normalizer==3.4.1
 idna==3.10
 filetype==1.2.0
 docutils==0.21.2
+python-dotenv==1.1.0

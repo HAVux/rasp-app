@@ -1,8 +1,7 @@
 #app/services/send_order.py
 import requests
 import time
-
-ORDER_API_URL = "https://kltn-green.vercel.app/order"
+from app.services.api_config import ORDER_API_URL
 
 #save_path="assets/latest_qr.png"
 

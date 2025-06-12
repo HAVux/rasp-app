@@ -1,0 +1,96 @@
+#:import dp kivy.metrics.dp
+#:import Factory kivy.factory.Factory
+#:import SettingsScreen app.screens.setting.SettingsScreen
+
+<SettingsScreen>:
+    name: "settings"
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: dp(20)
+        spacing: dp(20)
+        md_bg_color: 0.98, 0.98, 0.98, 1
+
+        # Header with back button
+        MDCard:
+            adaptive_height: True
+            padding: dp(10)
+            md_bg_color: 1, 1, 1, 1
+            radius: [10,]
+            elevation: 1
+
+            MDBoxLayout:
+                adaptive_height: True
+                spacing: dp(10)
+
+                MDIconButton:
+                    icon: "arrow-left"
+                    icon_size: "24sp"
+                    on_release: 
+                        root.manager.transition = Factory.NoTransition()
+                        root.manager.current = 'main'
+                    theme_icon_color: "Custom"
+                    icon_color: 0.2, 0.7, 0.3, 1
+                
+                MDLabel:
+                    text: "Cài đặt hệ thống"
+                    font_size: "24sp"
+                    bold: True
+                    theme_text_color: "Custom"
+                    text_color: 0.2, 0.2, 0.2, 1
+
+        # Settings content
+        MDCard:
+            orientation: "vertical"
+            padding: dp(20)
+            spacing: dp(20)
+            md_bg_color: 1, 1, 1, 1
+            radius: [15,]
+            elevation: 1
+
+            # WiFi Section
+            MDBoxLayout:
+                orientation: "vertical"
+                spacing: dp(15)
+                adaptive_height: True
+
+                MDLabel:
+                    text: "Cấu hình Wi-Fi"
+                    font_size: "18sp"
+                    bold: True
+                    theme_text_color: "Custom"
+                    text_color: 0.2, 0.7, 0.3, 1
+
+                MDTextField:
+                    hint_text: "Tên mạng (SSID)"
+                    text: root.ssid
+                    on_text: root.ssid = self.text
+                    mode: "rectangle"
+                    size_hint_x: 0.8
+                    pos_hint: {"center_x": 0.5}
+                    font_size: "16sp"
+
+                MDTextField:
+                    hint_text: "Mật khẩu"
+                    password: True
+                    text: root.password
+                    on_text: root.password = self.text
+                    mode: "rectangle"
+                    size_hint_x: 0.8
+                    pos_hint: {"center_x": 0.5}
+                    font_size: "16sp"
+                    password_mask: "●"
+
+                Widget:
+                    size_hint_y: None
+                    height: dp(20)
+
+                MDRaisedButton:
+                    text: "Áp dụng cài đặt Wi-Fi"
+                    on_release: 
+                        success = root.apply_wifi()
+                        if not success: root.show_error_popup("Không thể kết nối Wi-Fi. Vui lòng kiểm tra lại SSID và mật khẩu.")
+                    md_bg_color: 0.2, 0.7, 0.3, 1
+                    size_hint_x: 0.5
+                    pos_hint: {"center_x": 0.5}
+                    elevation: 2
+                    _no_ripple_effect: True

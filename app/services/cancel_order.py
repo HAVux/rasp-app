@@ -1,5 +1,6 @@
 #app/services/cancel_order.py
 import requests
+from app.services.api_config import STATUS_API_URL
 
 API_URL = "https://kltn-green.vercel.app/order/status/"
 
@@ -9,7 +10,7 @@ def cancel_order(order_code):
     Trạng thái 4 = Đã hủy.
     """
     try:
-        url = f"{API_URL}/{order_code}"
+        url = f"{STATUS_API_URL}/{order_code}"
         payload = {"status": 4}
         headers = {
             "User-Agent": "Mozilla/5.0 (Kivy App)",
