@@ -2,8 +2,6 @@
 import requests
 from app.services.api_config import STATUS_API_URL
 
-API_URL = "https://kltn-green.vercel.app/order/status/"
-
 def cancel_order(order_code):
     """
     Hủy đơn hàng theo mã order_code bằng cách gửi PUT.
