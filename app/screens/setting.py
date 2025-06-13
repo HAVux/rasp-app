@@ -12,6 +12,28 @@ class SettingsScreen(Screen):
     ssid = StringProperty("")
     password = StringProperty("")
 
+    def show_keyboard(self):
+        """Show on-screen keyboard"""
+        try:
+            self._keyboard_process = subprocess.Popen(
+                ["matchbox-keyboard"],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
+        except Exception as e:
+            print(f"❌ Không thể hiện bàn phím: {e}")
+
+    def hide_keyboard(self):
+        """Hide on-screen keyboard"""
+        if self._keyboard_process:
+            self._keyboard_process.terminate()
+            self._keyboard_process = None
+
+    def on_leave(self):
+        """Clean up when leaving screen"""
+        self.hide_keyboard()
+        super().on_leave()
+
     def _run_secure_command(self, command, *args, timeout=15):
         """Execute command securely with sanitized arguments"""
         try:
@@ -38,9 +60,17 @@ class SettingsScreen(Screen):
     def apply_wifi(self):
         try:
             config = self._generate_wifi_config()
-            with open((WIFI_CONFIG_PATH), "w") as f:
-                f.write(config)
-
+            # Write config using sudo and tee
+            write_cmd = f'echo "{config}" | sudo tee {WIFI_CONFIG_PATH}'
+            result = subprocess.run(
+                ['bash', '-c', write_cmd],
+                capture_output=True,
+                text=True
+            )
+            if result.returncode != 0:
+                print(f"❌ Không thể ghi file cấu hình: {result.stderr}")
+                return False
+        
             if not self._run_secure_command("sudo", "nmcli", "networking", "off", timeout=5):
                 raise RuntimeError("Failed to disable networking")
             

@@ -3,7 +3,9 @@ from kivymd.uix.button import MDFlatButton
 from kivymd.uix.textfield import MDTextField
 from kivymd.uix.boxlayout import MDBoxLayout
 from os import environ
+import subprocess
 from dotenv import load_dotenv
+
 
 # Load environment variables
 load_dotenv()
@@ -11,6 +13,7 @@ load_dotenv()
 class PinPopup(MDDialog):
     _pin_attempts = 0
     _max_attempts = 3
+    _keyboard_process = None
 
     def __init__(self, on_success=None, **kwargs):
         self.on_success = on_success
@@ -24,12 +27,13 @@ class PinPopup(MDDialog):
             height=130
         )
         
-        # PIN input field
+        # PIN input field with keyboard trigger
         self.pin_input = MDTextField(
             hint_text="Nhập mã PIN",
             password=True,
             mode="rectangle",
-            font_size=20
+            font_size=20,
+            on_focus=self.handle_keyboard
         )
         content.add_widget(self.pin_input)
 
@@ -57,6 +61,35 @@ class PinPopup(MDDialog):
             size_hint=(0.4, None),
             **kwargs
         )
+
+    def handle_keyboard(self, instance, value):
+        """Show/hide keyboard based on focus"""
+        if value:  # When focused
+            self.show_keyboard()
+        else:  # When focus is lost
+            self.hide_keyboard()
+
+    def show_keyboard(self):
+        """Show on-screen keyboard"""
+        try:
+            self._keyboard_process = subprocess.Popen(
+                ["matchbox-keyboard"],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
+        except Exception as e:
+            print(f"❌ Không thể hiện bàn phím: {e}")
+
+    def hide_keyboard(self):
+        """Hide on-screen keyboard"""
+        if self._keyboard_process:
+            self._keyboard_process.terminate()
+            self._keyboard_process = None
+
+    def on_dismiss(self):
+        """Clean up when dialog is dismissed"""
+        self.hide_keyboard()
+        super().on_dismiss()
 
     def verify_pin(self):
         if self._pin_attempts >= self._max_attempts:

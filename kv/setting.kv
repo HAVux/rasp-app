@@ -68,6 +68,8 @@
                     size_hint_x: 0.8
                     pos_hint: {"center_x": 0.5}
                     font_size: "16sp"
+                    on_focus: 
+                        root.show_keyboard() if self.focus else root.hide_keyboard()
 
                 MDTextField:
                     hint_text: "Mật khẩu"
@@ -79,6 +81,8 @@
                     pos_hint: {"center_x": 0.5}
                     font_size: "16sp"
                     password_mask: "●"
+                    on_focus:
+                        root.show_keyboard() if self.focus else root.hide_keyboard()
 
                 Widget:
                     size_hint_y: None
