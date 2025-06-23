@@ -1,0 +1,139 @@
+#:import dp kivy.metrics.dp
+#:import LockScreen app.screens.lockscreen.LockScreen
+
+<LockScreen>:
+    name: "lock"
+
+    AnchorLayout:
+        anchor_x: "center"
+        anchor_y: "center"
+
+        MDBoxLayout:
+            orientation: "vertical"
+            spacing: dp(24)
+            padding: dp(40)
+            size_hint: None, None
+            width: self.minimum_width
+            height: self.minimum_height
+            md_bg_color: 1, 1, 1, 1
+            radius: [20]
+
+            MDIcon:
+                icon: "lock"
+                size_hint: None, None
+                size: dp(64), dp(64)
+                pos_hint: {"center_x": 0.5}
+                theme_icon_color: "Custom"
+                icon_color: 0.2, 0.5, 0.8, 1
+
+            MDLabel:
+                text: "Ứng dụng đã bị khóa"
+                font_style: "H5"
+                halign: "center"
+                theme_text_color: "Custom"
+                text_color: 0.2, 0.2, 0.2, 1
+                size_hint_y: None
+                height: self.texture_size[1]
+
+            MDTextField:
+                id: password_input
+                password: True
+                readonly: True
+                font_size: "32sp"
+                halign: "center"
+                mode: "rectangle"
+                size_hint: None, None
+                width: dp(220)
+                height: dp(60)
+                pos_hint: {"center_x": 0.5}
+
+            GridLayout:
+                cols: 3
+                spacing: dp(15)
+                size_hint: None, None
+                width: dp(70*3 + 15*2)
+                height: self.minimum_height
+                pos_hint: {"center_x": 0.5}
+
+                # ----- row 1 -----
+                MDRoundFlatButton:
+                    text: "1"
+                    font_size: "24sp"
+                    size_hint: None, None
+                    size: dp(70), dp(70)
+                    on_release: root.append_number("1")
+                MDRoundFlatButton:
+                    text: "2"
+                    font_size: "24sp"
+                    size_hint: None, None
+                    size: dp(70), dp(70)
+                    on_release: root.append_number("2")
+                MDRoundFlatButton:
+                    text: "3"
+                    font_size: "24sp"
+                    size_hint: None, None
+                    size: dp(70), dp(70)
+                    on_release: root.append_number("3")
+
+                # ----- row 2 -----
+                MDRoundFlatButton:
+                    text: "4"
+                    font_size: "24sp"
+                    size_hint: None, None
+                    size: dp(70), dp(70)
+                    on_release: root.append_number("4")
+                MDRoundFlatButton:
+                    text: "5"
+                    font_size: "24sp"
+                    size_hint: None, None
+                    size: dp(70), dp(70)
+                    on_release: root.append_number("5")
+                MDRoundFlatButton:
+                    text: "6"
+                    font_size: "24sp"
+                    size_hint: None, None
+                    size: dp(70), dp(70)
+                    on_release: root.append_number("6")
+
+                # ----- row 3 -----
+                MDRoundFlatButton:
+                    text: "7"
+                    font_size: "24sp"
+                    size_hint: None, None
+                    size: dp(70), dp(70)
+                    on_release: root.append_number("7")
+                MDRoundFlatButton:
+                    text: "8"
+                    font_size: "24sp"
+                    size_hint: None, None
+                    size: dp(70), dp(70)
+                    on_release: root.append_number("8")
+                MDRoundFlatButton:
+                    text: "9"
+                    font_size: "24sp"
+                    size_hint: None, None
+                    size: dp(70), dp(70)
+                    on_release: root.append_number("9")
+
+                # ----- row 4 -----
+                MDRoundFlatIconButton:
+                    icon: "keyboard-backspace"
+                    text: " "
+                    size_hint: None, None
+                    size: dp(70), dp(70)
+                    padding: "0dp", "0dp"
+                    line_color: 0.9, 0.3, 0.3, 0.5
+                    icon_color: 0.9, 0.3, 0.3, 1
+                    on_release: root.delete_last()
+                MDRoundFlatButton:
+                    text: "0"
+                    font_size: "24sp"
+                    size_hint: None, None
+                    size: dp(70), dp(70)
+                    on_release: root.append_number("0")
+                MDFloatingActionButton:
+                    icon: "check"
+                    size_hint: None, None
+                    size: dp(70), dp(70)
+                    md_bg_color: 0.17, 0.8, 0.4, 1
+                    on_release: root.unlock_app()

@@ -1,5 +1,6 @@
 #:import dp kivy.metrics.dp
 #:import Factory kivy.factory.Factory
+#:import NoTransition kivy.uix.screenmanager.NoTransition
 #:import SettingsScreen app.screens.setting.SettingsScreen
 
 <SettingsScreen>:
@@ -26,7 +27,7 @@
                     icon: "arrow-left"
                     icon_size: "24sp"
                     on_release: 
-                        root.manager.transition = Factory.NoTransition()
+                        root.manager.transition = NoTransition()
                         root.manager.current = 'main'
                     theme_icon_color: "Custom"
                     icon_color: 0.2, 0.7, 0.3, 1
@@ -37,6 +38,15 @@
                     bold: True
                     theme_text_color: "Custom"
                     text_color: 0.2, 0.2, 0.2, 1
+
+                MDIconButton:
+                    icon: "lock"
+                    icon_size: "24sp"
+                    on_release: 
+                        root.manager.transition = NoTransition()
+                        root.manager.current = 'lock'
+                    theme_icon_color: "Custom"
+                    icon_color: 0.6, 0.6, 0.6, 1
 
         # Settings content
         MDCard:
@@ -61,6 +71,7 @@
                     text_color: 0.2, 0.7, 0.3, 1
 
                 MDTextField:
+                    id: ssid_input
                     hint_text: "Tên mạng (SSID)"
                     text: root.ssid
                     on_text: root.ssid = self.text
@@ -68,21 +79,36 @@
                     size_hint_x: 0.8
                     pos_hint: {"center_x": 0.5}
                     font_size: "16sp"
-                    on_focus: 
-                        root.show_keyboard() if self.focus else root.hide_keyboard()
+                    on_focus: if self.focus: root.show_keyboard(self)
 
-                MDTextField:
-                    hint_text: "Mật khẩu"
-                    password: True
-                    text: root.password
-                    on_text: root.password = self.text
-                    mode: "rectangle"
+                # Password field with show/hide toggle
+                MDBoxLayout:
                     size_hint_x: 0.8
                     pos_hint: {"center_x": 0.5}
-                    font_size: "16sp"
-                    password_mask: "●"
-                    on_focus:
-                        root.show_keyboard() if self.focus else root.hide_keyboard()
+                    adaptive_height: True
+                    spacing: dp(10)
+                    
+                    MDTextField:
+                        id: password_input
+                        hint_text: "Mật khẩu"
+                        password: True
+                        text: root.password
+                        on_text: root.password = self.text
+                        mode: "rectangle"
+                        font_size: "16sp"
+                        password_mask: "●"
+                        on_focus: if self.focus: root.show_keyboard(self)
+                        size_hint_x: 0.9
+                    
+                    MDIconButton:
+                        id: toggle_password
+                        icon: "eye-off"
+                        icon_size: "24sp"
+                        theme_icon_color: "Custom"
+                        icon_color: 0.5, 0.5, 0.5, 1
+                        on_release:
+                            root.toggle_password_visibility()
+                            self.icon = "eye" if password_input.password else "eye-off"
 
                 Widget:
                     size_hint_y: None
@@ -92,7 +118,7 @@
                     text: "Áp dụng cài đặt Wi-Fi"
                     on_release: 
                         success = root.apply_wifi()
-                        if not success: root.show_error_popup("Không thể kết nối Wi-Fi. Vui lòng kiểm tra lại SSID và mật khẩu.")
+                        if not success: root._show_error_popup("Không thể kết nối Wi-Fi. Vui lòng kiểm tra lại SSID và mật khẩu.")
                     md_bg_color: 0.2, 0.7, 0.3, 1
                     size_hint_x: 0.5
                     pos_hint: {"center_x": 0.5}

@@ -2,93 +2,98 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.textfield import MDTextField
 from kivymd.uix.boxlayout import MDBoxLayout
+from app.utils.keyboard import VirtualKeyboard
+from kivy.uix.vkeyboard import VKeyboard
+from kivy.core.window import Window
 from os import environ
-import subprocess
 from dotenv import load_dotenv
 
-
-# Load environment variables
+# Load biến môi trường
 load_dotenv()
 
 class PinPopup(MDDialog):
     _pin_attempts = 0
     _max_attempts = 3
-    _keyboard_process = None
 
     def __init__(self, on_success=None, **kwargs):
         self.on_success = on_success
-        
-        # Create content layout
-        content = MDBoxLayout(
+        self.keyboard = None
+
+        # Layout nội dung chỉ gồm TextField
+        content_layout = MDBoxLayout(
             orientation="vertical",
             spacing=15,
             padding=20,
             size_hint_y=None,
-            height=130
+            height=100
         )
-        
-        # PIN input field with keyboard trigger
+
         self.pin_input = MDTextField(
             hint_text="Nhập mã PIN",
             password=True,
             mode="rectangle",
             font_size=20,
-            on_focus=self.handle_keyboard
+            size_hint_y=None,
+            height=60
         )
-        content.add_widget(self.pin_input)
+        self.pin_input.bind(focus=self._on_focus)
+        content_layout.add_widget(self.pin_input)
 
-        # Dialog buttons
+        # Lưu lại tham chiếu để controller bên ngoài sử dụng
+        self.content_layout = content_layout
+
         buttons = [
-            MDFlatButton(
-                text="HỦY",
-                theme_text_color="Custom",
-                text_color=[0.5, 0.5, 0.5, 1],
-                on_release=lambda x: self.dismiss()
-            ),
-            MDFlatButton(
-                text="XÁC NHẬN",
-                theme_text_color="Custom",
-                text_color=[0.2, 0.7, 0.3, 1],
-                on_release=lambda x: self.verify_pin()
-            ),
+            MDFlatButton(text="HỦY", on_release=lambda x: self.dismiss()),
+            MDFlatButton(text="XÁC NHẬN", on_release=lambda x: self.verify_pin())
         ]
 
         super().__init__(
             title="Xác thực mã PIN",
             type="custom",
-            content_cls=content,
+            content_cls=content_layout,
             buttons=buttons,
             size_hint=(0.4, None),
+            auto_dismiss=False,
             **kwargs
         )
+    
+    def _on_focus(self, instance, value):
+        """Handle input focus changes"""
+        if value:  # Input gained focus
+            self._show_keyboard()
 
-    def handle_keyboard(self, instance, value):
-        """Show/hide keyboard based on focus"""
-        if value:  # When focused
-            self.show_keyboard()
-        else:  # When focus is lost
-            self.hide_keyboard()
+    def _show_keyboard(self):
+        if self.keyboard:
+            return
 
-    def show_keyboard(self):
-        """Show on-screen keyboard"""
-        try:
-            self._keyboard_process = subprocess.Popen(
-                ["matchbox-keyboard"],
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL
-            )
-        except Exception as e:
-            print(f"❌ Không thể hiện bàn phím: {e}")
+        # Tạo bàn phím ảo với layout QWERTY
+        self.keyboard = VKeyboard(layout='qwerty', size_hint=(1, None), height=300)
+        self.keyboard.bind(on_key_up=self._on_key_up)
+        Window.add_widget(self.keyboard)
+        self.keyboard.pos = (0, 0)
 
-    def hide_keyboard(self):
-        """Hide on-screen keyboard"""
-        if self._keyboard_process:
-            self._keyboard_process.terminate()
-            self._keyboard_process = None
+    def _on_key_up(self, instance, keycode, *args):
+        """Xử lý khi người dùng nhấn phím trên bàn phím ảo"""
+        key_str = keycode[0] if isinstance(keycode, (list, tuple)) else keycode
+
+        if key_str == 'backspace':
+            self.pin_input.do_backspace()
+        elif key_str == 'enter':
+            self.verify_pin()
+        elif isinstance(key_str, str) and len(key_str) == 1:
+            self.pin_input.insert_text(key_str)
+
+
+    def _hide_keyboard(self, *args):
+        """Hide and remove keyboard"""
+        if self.keyboard:
+            if self.keyboard.parent:
+                self.keyboard.parent.remove_widget(self.keyboard)
+            self.keyboard = None
 
     def on_dismiss(self):
         """Clean up when dialog is dismissed"""
-        self.hide_keyboard()
+        self._hide_keyboard()
         super().on_dismiss()
 
     def verify_pin(self):
@@ -97,7 +102,7 @@ class PinPopup(MDDialog):
             self.pin_input.helper_text = "Quá số lần thử! Vui lòng thử lại sau."
             return
 
-        correct_pin = environ.get("APP_PIN")  # Default to '0000' if not set
+        correct_pin = environ.get("APP_PIN")
         if self.pin_input.text == correct_pin:
             self._pin_attempts = 0
             if self.on_success:

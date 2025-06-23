@@ -113,6 +113,9 @@ class PageController:
         self.app.root.current = "network_error"
         Clock.schedule_once(self.reset_to_main, 3)
     
+    def show_setting_screen(self, dt=None):
+        self.app.root.current = "settings"
+    
     def poll_order_status(self, dt):
         if not self.app.order_code:
             return
