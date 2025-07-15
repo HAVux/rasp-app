@@ -1,5 +1,6 @@
 from kivy.uix.screenmanager import Screen
 from kivy.properties import StringProperty
+from kivy.properties import ObjectProperty
 from kivy.core.window import Window
 from kivy.animation import Animation
 from kivy.uix.vkeyboard import VKeyboard
@@ -116,6 +117,11 @@ class SettingsScreen(Screen):
         color = [0.2, 0.7, 0.3, 1] if ok else [1, 0, 0, 1]
         MDDialog(title=title, text=msg, buttons=[MDFlatButton(text="Đóng", theme_text_color="Custom", text_color=color, on_release=lambda x: x.parent.parent.dismiss())]).open()
 
+    def _show_success_popup(self, message):
+        self._popup(True, message)
+
+    def _show_error_popup(self, message):
+        self._popup(False, message)
 # ------------------------------------------------------------------
 # Wi‑Fi worker (thread)
 # ------------------------------------------------------------------
@@ -145,6 +151,8 @@ class SettingsScreen(Screen):
             self._show_error_popup("Vui lòng nhập tên mạng (SSID) để kết nối.")
             return False
         
+        self._show_loading()
+
         try:
             config = self._generate_wifi_config()
             # Write config using sudo and tee
@@ -187,6 +195,9 @@ class SettingsScreen(Screen):
             # Try to recover network
             self._run_secure_command("sudo", "systemctl", "restart", "networking")
             return False
+        
+        finally:
+            self._close_loading()
         
     def _check_network_and_restart_tailscale(self):
         """Đợi 5s và kiểm tra kết nối Internet"""

@@ -25,7 +25,7 @@ IDLE_TIMEOUT = 60
 
 class MainApp(MDApp):
 
-    self._idle_ev = None
+    #self._idle_ev = None
 
     hold_start_time = NumericProperty(0)
 
